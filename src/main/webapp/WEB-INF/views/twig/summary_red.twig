@@ -1,0 +1,34 @@
+{% extends "header" %}
+{% block title %}Создание услуги{% endblock %}
+{% block js %}
+    <script type="text/javascript" src="{{ fullUri("/js/selectors.js") }}"></script>
+{% endblock %}
+{% block navbar %}
+    {% include "navbar_auth" %}
+{% endblock navbar %}
+{% block content %}
+    {% if isSave is not null %}
+        <div style="border: 1px black solid; padding: 16px" class="container centered d-flex justify-content-end">
+            {% for error in errors %}
+                <b>{{ error }}</b><br>
+            {% endfor %}
+            {% if message is not empty %}
+                <b>{{ message }}</b>
+            {% endif %}
+        </div>
+    {% endif %}
+    <div class="container d-flex justify-content-start flex-column" style="width: 100rem">
+        <div class="centered">
+            <h3>Создание услуги</h3>
+        </div>
+        <br><br>
+        <div>
+            {% block s %}
+                <form action="{{ fullUri("/summary/edit/")}}{{ summary.id }}" method="POST" class="reg">
+                    <input {{ csrf() }} type="hidden">
+                    {% include "summary/edit" %}
+                </form>
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}

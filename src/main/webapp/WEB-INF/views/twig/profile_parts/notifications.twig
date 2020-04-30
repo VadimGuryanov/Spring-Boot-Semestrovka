@@ -1,0 +1,16 @@
+{% for notification in notifications %}
+    <div class="fir-info container d-flex flex-column justify-content-start notification">
+        <div class="not-link">
+            {% if user.getPhotoUrl() is not null %}
+                <a href="{{fullUri("/notification/" + notification.id)}}"><img class="rounded-circle" src="{{notification.photo}}" alt="profile-image" width="200px" height="200px"> </a>
+            {% else %}
+                <a href="{{fullUri("/notification/" + notification.id)}}"><img class="rounded-circle" src="https://cdn0.iconfinder.com/data/icons/set-ui-app-android/32/8-512.png" alt="profile-image" width="200px" height="200px"> </a>
+            {% endif %}
+            <br>
+{#            <a href="{{ fullUri("/profile/") notification.user }}">{{ notification.userName }}</a>#}
+        </div>
+        <div class="not-mess">
+            <p>{{notification.message}}</p>
+        </div>
+</div>
+{% endfor %}

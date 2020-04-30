@@ -1,0 +1,7 @@
+{% extends "summary" %}
+{% if anon is null %}
+    {% block navbar %}
+        {% include "navbar_anon" %}
+    {% endblock %}
+{% endif %}
+{% block icons %}{% endblock %}

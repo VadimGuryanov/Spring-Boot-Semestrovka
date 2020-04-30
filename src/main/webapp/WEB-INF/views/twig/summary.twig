@@ -1,0 +1,77 @@
+{% extends "header" %}
+{% block title %}{{ summary.title }}{% endblock %}
+{% if anon is null %}
+    {% block navbar %}
+        {% include "navbar_auth" %}
+    {% endblock navbar %}
+{% endif %}
+{% block content %}
+    <div class="d-flex justify-content-start">
+        <ul class="info-profile">
+            <li class="d-flex flex-row">
+                <b class="name">{{summary.title}}</b>
+                {% block icons %}
+                    <span style="margin-left: 15px; padding-bottom: 5px" class="d-flex flex-row">
+                        <a href="{{fullUri("/summary/edit/")}}{{summary.id}}"><i class="fas fa-edit fa-lg"></i></a>
+                        <form method="POST" action="{{fullUri("/summary/delete/")}}{{summary.id}}">
+                            <input {{ csrf() }} type="hidden">
+{#                            <input hidden="hidden" name="{{ _csrf.parameterName}}" value="{{ _csrf.token }}">#}
+                            <button style="margin-left: 5px" value='edit' type="submit">
+                                <i class="fas fa-trash fa-lg"></i>
+                            </button>
+                        </form>
+                    </span>
+                {% endblock %}
+            </li>
+            <li>
+                <a href="{{ fullUri("/profile/") }}{{ summary.user.id }}"><b>{{ summary.user.name }} {{ summary.user.lastName }}</b></a>
+            </li>
+            <br>
+            <li>
+               <div class="categories">
+                   {% for category in summary.getSummaryCategories() %}
+                        <a href="{{ fullUri("/search?query=")}}{{ category.name }}"><b>#{{category.name}}</b></a>
+                   {% endfor %}
+               </div>
+            </li>
+            <li>
+                <b>Стоимость:
+                    {% if  summary.cost is not null %}
+                        {{summary.cost}}
+                    {% else %}
+                        не указано
+                    {% endif %}
+                </b>
+            </li>
+            <br>
+            <li><b>{{ summary.country }}, {{ summary.sity }}, {{ summary.user.mobile }}</b></li>
+            <br>
+            <li><b>Соц.сети: <a href="{{ user.social }}">{{ summary.user.social}}</a></b></li>
+            <br>
+            <li>
+                <div class="d-flex flex-column">
+                    <b>Место работы: {{summary.work}}</b>
+                </div>
+            </li>
+            <br>
+            <li>
+                <div class="d-flex flex-column">
+                    <h5><b>Опыт работы:</b></h5>
+                    <b>{{summary.experience}}</b>
+                </div>
+            </li>
+            <li>
+                <div class="d-flex flex-column" style="margin-top: 20px">
+                    <h5><b>Описание:</b></h5>
+                    <div class="row">
+                        <div class="col-6">
+                            {% for des in summary.description | split('\n') %}
+                                <p style="font-size: 0.5cm; font-family: Arial, monospace">{{ des }}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+{% endblock%}

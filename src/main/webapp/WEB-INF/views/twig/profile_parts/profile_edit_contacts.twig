@@ -1,0 +1,26 @@
+<form action="{{ fullUri("/profile/edit") }}" method="POST" class="reg">
+    <input {{ csrf() }} type="hidden">
+    <div>
+        <input type="text" name="photoUrl" class="form-control" placeholder="Ссылка на фотографию профиля" aria-describedby="validationTooltipUsernamePrepend"
+               {% if user.photoUrl() is not empty %}value="{{user.photoUrl()}}"{% endif %} required>
+    </div>
+    <div>
+        <input type="text" name="study" class="form-control" placeholder="Место учебы" aria-describedby="validationTooltipUsernamePrepend"
+               {% if user.getStudy() is not empty %}value="{{user.getStudy()}}"{% endif %} required>
+    </div>
+    <div>
+        <input type="text" name="work" class="form-control" placeholder="Место работы" aria-describedby="validationTooltipUsernamePrepend"
+               {% if user.getWork() is not empty %}value="{{user.getWork()}}"{% endif %} required>
+    </div>
+    <div>
+        <input type="number" name="mobile" class="form-control" placeholder="Номер телефона" aria-describedby="validationTooltipUsernamePrepend"
+               {% if user.getMobile() is not empty %}value="{{user.getMobile()}}"{% endif %} required>
+    </div>
+    <div>
+        <input type="text" name="social" class="form-control" placeholder="Ссылка на социальную сеть" aria-describedby="validationTooltipUsernamePrepend"
+               {% if user.getSocial() is not empty %}value="{{user.getSocial() }}"{% endif %} required>
+    </div>
+    <div>
+        <button class="btn btn-primary" value='edit' type="submit">Изменить</button>
+    </div>
+</form>

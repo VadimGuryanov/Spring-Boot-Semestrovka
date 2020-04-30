@@ -1,0 +1,15 @@
+{% extends "header" %}
+{% block title %}Ничего не найденно{% endblock %}
+{% block navbar %}
+    {% if anon is null %}
+        {% include "navbar_auth" %}
+    {% else %}
+        {% include "navbar_anon" %}
+    {% endif %}
+{% endblock navbar %}
+{% block content %}
+    <div class="content centered d-flex justify-content-center align-items-center">
+        <h2>404</h2>
+        <h3>Ничего не найдено</h3>
+    </div>
+{% endblock %}

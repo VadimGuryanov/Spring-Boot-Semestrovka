@@ -1,0 +1,86 @@
+<div>
+    <div>
+        <b>Добавить название</b>
+        <input type="text" name="title" class="form-control" placeholder="Название"
+               {% if summary.title is not empty %}value="{{summary.title}}"{% endif %}
+               aria-describedby="validationTooltipUsernamePrepend" required>
+    </div>
+</div>
+<div class="form-group">
+    <div>
+        <b>Добавить категорию</b>
+        <input type="text" name="customCategory"
+               class="form-control" placeholder="Своя категория"
+               aria-describedby="validationTooltipUsernamePrepend">
+    </div>
+    <div>
+        <select id="category" name="summaryCategories" class="custom-select" multiple="multiple">
+            {% for category in categories %}
+                <option value="{{ category.name }}">{{ category.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+<div class="form-group">
+    <div>
+        <select id="country" name="country" class="custom-select" required>
+            {% if user.getCountry() is not empty %}
+                <option value="{{ user.getCountry() }}">{{ user.getCountry() }}</option>
+            {% endif %}
+            {% for country in countries %}
+                {% if country equals user.getCountry() %}{% else %}
+                    <option value="{{ country.name }}">{{ country.name }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+    </div>
+    <div>
+        <select id="sity" name="sity" class="custom-select" required>
+            {% if user.getSity() is not empty %}
+                <option value="{{ user.getSity() }}">{{ user.getSity() }}</option>
+            {% endif %}
+            {% for sity in sities %}
+                {% if sity equals user.getSity() %}{% else %}
+                    <option value="{{ sity.name }}">{{ sity.name }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+    </div>
+</div>
+<div>
+    <b>Место работы</b>
+    <input type="text" name="work" class="form-control" aria-describedby="validationTooltipUsernamePrepend"
+           {% if summary.work is not empty %}value="{{ summary.work }}" {% endif %}required>
+</div>
+<div>
+    <b>Опыт работы:</b>
+    <input type="text" name="experience" class="form-control"
+           {% if summary.experience is not empty %}value="{{summary.experience}}"{% endif %}
+           placeholder="Опишите свой опыт работы, чем вы занимались" aria-describedby="validationTooltipUsernamePrepend" required>
+</div>
+<div>
+    <b>Стоимость услуги:</b>
+    <div class="row">
+        <span class="col-3">
+            <input type="number" name="cost"
+                   {% if summary.cost is not empty %}value="{{summary.cost}}"{% endif %}
+                   aria-describedby="validationTooltipUsernamePrepend">
+
+        </span>
+        <span class="col-3">
+            <select id="cost_val" name="cost_val" class="custom-select" style="width: 100px">
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+                <option value="RUB">RUB</option>
+            </select>
+        </span>
+    </div>
+</div>
+<div class="description">
+    <div class="form-group">
+        <textarea class="form-control" name="description" style="height: 500px; width: 100%; font-family:arial">{% if summary.description is not empty %}{{ summary.description }}{% endif %}</textarea>
+    </div>
+</div>
+<div>
+    <button class="btn btn-primary" value='edit' type="submit">Создать</button>
+</div>

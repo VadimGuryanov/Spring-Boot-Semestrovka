@@ -1,0 +1,24 @@
+{% extends "header" %}
+{% block title %}Вход{% endblock %}
+{% block navbar %}
+    {% include "navbar_anon" %}
+{% endblock navbar %}
+{% block content %}
+    <div class="content centered d-flex justify-content-center align-items-center">
+        <form class="form-signin reg" method="post" action="/signin">
+            <input {{ csrf() }} type="hidden">
+{#            <input hidden="hidden" name="{{_csrf.parameterName}}" value="{{_csrf.token}}">#}
+{#            <img class="mb-4" src="img/logo-poet.png" alt="logo-poet" width="72" height="72"/>#}
+            <div>
+                <label for="inputLogin" class="sr-only">Email address</label>
+                <input name="login" type="text" id="inputLogin" class="form-control" placeholder="login" required autofocus>
+            </div>
+            <div>
+                <label for="inputPassword" class="sr-only">Password</label>
+                <input name="password" type="password" id="inputPassword" class="form-control" placeholder="password" required>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
+        </form>
+    </div>
+{% endblock %}
+{% block footer %}{% endblock %}

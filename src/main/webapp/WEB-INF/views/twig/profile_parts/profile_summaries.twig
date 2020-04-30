@@ -1,0 +1,43 @@
+{% block summary %}
+    <div id="summaries-html">
+        {% for summary in summaries %}
+            <div id="fir-info" class="fir-info container d-flex flex-column justify-content-start summaries">
+                <div class="name">
+                    <a href="{{ fullUri("/summary/")}}{{summary.id }}">{{ summary.title }}</a>
+                </div>
+                <div class="categories">
+                    {% for category in summary.getSummaryCategories() %}
+    {#                    <a href="{{ fullUri("/search?query=")}}{{ category.name }}"><b>#{{category.name}}</b></a>#}
+                        <b>#{{category.name}}</b>
+                    {% endfor %}
+                </div>
+                <div class="sec-info">
+                    <div>
+                        <a href="{{fullUri("/profile/")}}{{user.id }}"><b>{{user.name}} {{user.lastName}}</b></a>
+                    </div>
+                    <div>
+                        <b>{{summary.country}}, {{summary.sity}}</b>
+                    </div>
+                </div>
+                <div class="content">
+                    <p>{{summary.description|abbreviate(50)}}</p>
+                </div>
+                <div>
+                    {% block actions %}
+                        <span style="margin-left: 15px; padding-bottom: 5px" class="d-flex flex-row">
+                                <a href="{{fullUri("/summary/edit/")}}{{summary.id}}"><i class="fas fa-edit fa-lg"></i></a>
+                                <form method="POST" action="{{fullUri("/summary/delete/")}}{{summary.id}}">
+                                    <input {{ csrf() }} type="hidden">
+        {#                            <input hidden="hidden" name="{{ _csrf.parameterName}}" value="{{ _csrf.token }}">#}
+                                    <button style="margin-left: 5px" value='edit' type="submit">
+                                        <i class="fas fa-trash fa-lg"></i>
+                                    </button>
+                                </form>
+                        </span>
+        {#                <input class="btn btn-light" type='submit' value='Посмотреть отклики' name="respond">#}
+                    {% endblock %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

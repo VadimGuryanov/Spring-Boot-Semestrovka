@@ -1,0 +1,43 @@
+<div class="d-flex justify-content-centered pading flex-column">
+    <div class="d-flex justify-content-centered" style="padding:20px;border-bottom: 1px solid #eee;">
+        <div class="d-flex justify-content-centered">
+            {% if user.getPhotoUrl() is not null %}
+                <a href="{{ user.getPhotoUrl() }}"><img class="rounded-circle" src="{{ user.getPhotoUrl()}}" alt="profile-image" width="200px" height="200px"> </a>
+            {% else %}
+                <a href="https://cdn0.iconfinder.com/data/icons/set-ui-app-android/32/8-512.png"><img class="rounded-circle" src="https://cdn0.iconfinder.com/data/icons/set-ui-app-android/32/8-512.png" alt="profile-image" width="200px" height="200px"> </a>
+            {% endif %}
+        </div>
+        <div class="d-flex justify-content-start">
+            <ul class="info-profile">
+                <li class="name"><b>{{user.name}} {{user.lastName}}</b></li>
+                <li><b>Страна: {{user.country}}</b></li>
+                <li><b>Город: {{ user.sity }}</b></li>
+                <li><b>Возраст: {{ user.age }}</b></li>
+                {% if user.study is not null %}
+                    <li><b>Место учебы: {{ user.study }}</b></li>
+                {% endif %}
+                {% if user.work is not null %}
+                    <li><b>Место работы: {{ user.work }}</b></li>
+                {% endif %}
+                {% if user.mobile is not null %}
+                    <li><b>Телефон: {{ user.mobile }}</b></li>
+                {% endif %}
+                {% if user.social is not null %}
+                    <li><b>Соц.сети: <a href="{{ user.social }}">{{ user.social}}</a></b></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+    <div class="d-flex flex-column" style="padding: 20px">
+        {% if user.description is not null %}
+            <div class="justify-content-centered" style="margin-left: 10px">
+                <h1>О себе</h1><br>
+            </div>
+            <div class="justify-content-start" >
+                {% for des in user.description | split('\n') %}
+                    <p style="font-size: 0.5cm; font-family: Arial, monospace">{{ des }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</div>

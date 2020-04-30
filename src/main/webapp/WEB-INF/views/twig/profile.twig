@@ -1,0 +1,41 @@
+{% extends "header" %}
+{% block title %}Мой профиль{% endblock %}
+{% block navbar %}
+    {% include "navbar_auth" %}
+{% endblock navbar %}
+{% block content %}
+    <div class="container-fluid">
+        {% block left_navbar %}
+            <div class="row">
+                <div class="col-2 prof" style="margin: 30px 0 0 30px">
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <a class="nav-link active show" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="true">Информация</a>
+                        <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Сообщения</a>
+                        <a class="nav-link" id="v-pills-summaries-tab" data-toggle="pill" href="#v-pills-summaries" role="tab" aria-controls="v-pills-messages" aria-selected="false">Услуги</a>
+                        <a class="nav-link" href="{{ fullUri("/summary/new") }}" aria-selected="false">Создать услугу</a>
+                        <a class="nav-link" href="{{ fullUri("/profile/edit") }}" aria-selected="false">Редактирование</a>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="tab-content" id="v-pills-tabContent">
+                        <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                            {% include "profile_parts/profile_information" %}
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                            {% include "profile_parts/notifications" %}
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-summaries" role="tabpanel" aria-labelledby="v-pills-summaries-tab">
+                            {% include "profile_parts/profile_summaries" %}
+                        </div>
+                        {#                        <div class="tab-pane fade" id="v-pills-new" role="tabpanel" aria-labelledby="v-pills-messages-tab">#}
+                        {#                            <a href="{{ fullUri("/summary/new") }}"></a>#}
+                        {#                        </div>#}
+                        {#                        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">#}
+                        {#                            <a href="{{ fullUri("/profile/edit") }}"></a>#}
+                        {#                        </div>#}
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
+    </div>
+{% endblock %}

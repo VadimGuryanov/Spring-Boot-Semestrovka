@@ -1,0 +1,50 @@
+{% extends "header" %}
+{% block title %}Редактирование страници{% endblock %}
+{% block js %}
+    <script type="text/javascript" src="{{ fullUri("/js/selectors.js") }}"></script>
+{% endblock %}
+{% block navbar %}
+    {% include "navbar_auth" %}
+{% endblock navbar %}
+{% block content %}
+    {% if ok is null %}
+        <div style="border: 1px black solid; padding: 16px" class="container centered d-flex justify-content-start">
+            {% for error in errors %}
+                <b>{{ error }}</b><br>
+            {% endfor %}
+            {% if message is not empty %}
+                <b>{{ message }}</b>
+            {% endif %}
+        </div>
+    {% endif %}
+    <div class="container centered" style="width: 100rem">
+        <div>
+            <h2>Редактирование страници</h2>
+        </div>
+        <br><br>
+        <div>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="necessarily-tab" data-toggle="tab" href="#necessarily" role="tab" aria-controls="necessarily" aria-selected="true">Обязательная информация</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="contacts-tab" data-toggle="tab" href="#contacts" role="tab" aria-controls="contacts" aria-selected="false">Дополнительная информация</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="false">О себе</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="necessarily" role="tabpanel" aria-labelledby="home-tab">
+                    {% include "profile_parts/profile_edit_necessari" %}
+                </div>
+                <div class="tab-pane fade" id="contacts" role="tabpanel" aria-labelledby="profile-tab">
+                    {% include "profile_parts/profile_edit_contacts" %}
+                </div>
+                <div class="tab-pane fade" id="description" role="tabpanel" aria-labelledby="contact-tab">
+                    {% include "profile_parts/profile_edit_description" %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

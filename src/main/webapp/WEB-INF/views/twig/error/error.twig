@@ -1,0 +1,10 @@
+{% extends "header" %}
+{% block title %}Ошибка{% endblock %}
+{% block navbar %}
+    {% include "navbar_auth" %}
+{% endblock navbar %}
+{% block content %}
+    <h1>Exception</h1>
+    <h2>Failed URL: {{url}}</h2>
+    <h3>Exception:  {{exception.message}}</h3>
+{% endblock %}

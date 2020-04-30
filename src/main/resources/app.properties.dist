@@ -1,0 +1,25 @@
+#Spring properties
+# Available profiles: jsp, twig (mutually exclusive)
+spring.profiles.active=jsp
+# To-do: Do we need this with current configurations?
+spring.main.allow-bean-definition-overriding=true
+# Additional debug information. Requests/responses.
+logging.level.web=ALL
+
+#DB Properties
+db.username = root
+db.password =
+db.driver = com.mysql.jdbc.Driver
+db.url = jdbc:mysql://localhost:3306/spring?useUnicode=true&serverTimezone=UTC&useSSL=true&verifyServerCertificate=false
+db.logger_table_name = logging_info
+#Hibernate Configuration:
+hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+hibernate.show_sql=true
+entitymanager.packages.to.scan = ru.itis.springboothomework.models
+hibernate.hbm2ddl.auto=update
+hibernate.enable_lazy_load_no_trans=true
+# Hibernate tries to use @Generated value of type table what is wrong
+# https://vladmihalcea.com/why-should-not-use-the-auto-jpa-generationtype-with-mysql-and-hibernate/
+# https://hibernate.atlassian.net/browse/HHH-11014
+hibernate.id.new_generator_mappings=true
+

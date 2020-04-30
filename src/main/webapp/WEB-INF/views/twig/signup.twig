@@ -1,0 +1,79 @@
+{% extends "header" %}
+{% block title %}Регистрация{% endblock %}
+{% block js %}
+    <script type="text/javascript" src="{{ fullUri("/js/selectors.js") }}"></script>
+{% endblock %}
+{% block navbar %}
+    {% include "navbar_anon" %}
+{% endblock navbar %}
+{% block content %}
+    <div class="container centered d-flex justify-content-center" style="width: 80rem">
+        <form class="reg" method="POST" action="{{ fullUri("/signup") }}">
+            <input {{ csrf() }} type="hidden">
+            <div>
+                <h2>Регистрация</h2>
+            </div>
+            {% if ok is not null %}
+                <div style="border: 1px black solid; padding: 16px">
+                    {% for error in errors %}
+                        <b>{{ error }}</b><br>
+                    {% endfor %}
+                    {% if message is not empty %}
+                        <b>{{ message }}</b>
+                    {% endif %}
+                </div>
+            {% endif %}
+            <div>
+                <input type="text" name="login" id="inputLogin"  class="form-control" placeholder="Логин"
+                {% if login is not empty %}value="{{login}}"{% endif %} required>
+            </div>
+            <div>
+                <input type="password" name="password" class="form-control" placeholder="Пароль" aria-describedby="validationTooltipUsernamePrepend"
+                {% if password is not empty %}value="{{password}}"{% endif %} required>
+            </div>
+            <div>
+                <input type="password" name="passwordRepeat" class="form-control" placeholder="Повторите пароль" aria-describedby="validationTooltipUsernamePrepend"
+                {% if password_repeat is not empty %}value="{{password_repeat}}"{% endif %} required>
+            </div>
+            <div>
+                <input type="text" name="name" class="form-control" placeholder="Имя" aria-describedby="validationTooltipUsernamePrepend"
+                {% if name is not empty %}value="{{name}}"{% endif %} required>
+            </div>
+            <div>
+                <input type="text" name="lastName" class="form-control" placeholder="Фамилия" aria-describedby="validationTooltipUsernamePrepend"
+               {% if lastName is not empty %}value="{{lastName}}"{% endif %} required>
+            </div>
+            <div class="d-flex justify-content-start radioButton" style="width: 20rem">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="мужчина" checked>
+                    <label class="form-check-label" for="inlineRadio1">Мужчина</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="женщина">
+                    <label class="form-check-label" for="inlineRadio2">Женщина</label>
+                </div>
+            </div>
+            <div>
+                <select id="country" name="country" class="custom-select" required>
+                    <option value="-">-Страна-</option>
+                    {% for country in countries %}
+                        <option value="{{ country.name }}">{{ country.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <select id="sity" name="sity" class="custom-select" required hidden>
+                    <option value="-">-Город-</option>
+                </select>
+            </div>
+            <div>
+                <input type="number" name="age" class="form-control" placeholder="Возраст" aria-describedby="validationTooltipUsernamePrepend"
+                       {% if age is not empty %}value="{{age}}"{% endif %} required>
+            </div>
+            <div>
+                <button class="btn btn-primary" value='registration' type="submit">Зарегистрироваться</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+{% block footer %}{% endblock %}

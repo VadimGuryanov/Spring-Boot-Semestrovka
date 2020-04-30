@@ -1,0 +1,24 @@
+{% extends "header" %}
+{% block title %}COVID-19{% endblock %}
+{% block navbar %}
+    {% if anon is null %}
+        {% include "navbar_anon" %}
+    {% else %}
+        {% include "navbar_auth" %}
+    {% endif %}
+{% endblock navbar %}
+{% block content %}
+    <div class="d-flex justify-content-start">
+        <ul class="info-profile">
+            <li class="name"><b>{{user.name}} {{user.lastName}}</b></li>
+            <li><b>Страна: {{covid.country}}</b></li>
+            <li><b>Случаев заражения: {{ covid.cases }}</b></li>
+            <li><b>Смертей: {{ covid.deaths }}</b></li>
+            <li><b>Критических больных: {{ covid.critical }}</b></li>
+            <li><b>Активных больных: {{ covid.active }}</b></li>
+            <li><b>Выздровевших: {{ covid.recovered }}</b></li>
+            <li><b>Сегодня случаев: {{ covid.todayCases }}</b></li>
+            <li><b>Сегодня смертей: {{ covid.todayDeaths }}</b></li>
+        </ul>
+    </div>
+{% endblock %}

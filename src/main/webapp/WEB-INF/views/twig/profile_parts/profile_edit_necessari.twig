@@ -1,0 +1,52 @@
+<form action="{{ fullUri("/profile/edit") }}" method="POST" class="reg">
+    <input {{ csrf() }} type="hidden">
+    {#    <input hidden="hidden" name="{{ _csrf.parameterName}}" value="{{ _csrf.token }}">#}
+    <div>
+        <input type="text" name="name" class="form-control" placeholder="Имя" aria-describedby="validationTooltipUsernamePrepend"
+               {% if user.getName() is not empty %}value="{{user.getName()}}"{% endif %} required>
+    </div>
+    <div>
+        <input type="text" name="lastName" class="form-control" placeholder="Фамилия" aria-describedby="validationTooltipUsernamePrepend"
+               {% if user.getLastName() is not empty %}value="{{user.getLastName()}}"{% endif %} required>
+    </div>
+    <div class="d-flex justify-content-start radioButton" style="width: 20rem">
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="мужчина"
+                   {% if user.getGender() equals "мужчина" %}checked{% endif %}>
+            <label class="form-check-label" for="inlineRadio1">Мужчина</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="женщина"
+                   {% if user.getGender() equals "женщина" %}checked{% endif %}>
+            <label class="form-check-label" for="inlineRadio2">Женщина</label>
+        </div>
+    </div>
+    <div class="form-group">
+        <div>
+            <select id="country" name="country" class="custom-select" required>
+                {% if user.getCountry() is not empty %}
+                    <option value="{{ user.getCountry() }}">{{ user.getCountry() }}</option>
+                {% endif %}
+                {% for country in countries %}
+                    {% if country equals user.getCountry() %}{% else %}
+                    <option value="{{ country.name }}">{{ country.name }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <select id="sity" name="sity" class="custom-select" required>
+                {% if user.getSity() is not empty %}
+                    <option value="{{ user.getSity() }}">{{ user.getSity() }}</option>
+                {% endif %}
+            </select>
+        </div>
+    </div>
+    <div>
+        <input type="number" name="age" class="form-control" placeholder="Возраст" aria-describedby="validationTooltipUsernamePrepend"
+               {% if user.getAge() is not empty %}value="{{user.getAge()}}"{% endif %} required>
+    </div>
+    <div>
+        <button class="btn btn-primary" value='edit' type="submit">Изменить</button>
+    </div>
+</form>

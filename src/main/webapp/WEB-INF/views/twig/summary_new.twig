@@ -1,0 +1,8 @@
+{% extends "summary_red" %}
+{% block title %}Редактирование услуги{% endblock %}
+{% block s %}
+    <form action="{{ fullUri("/summary/new") }}" method="POST" class="reg">
+        <input {{ csrf() }} type="hidden">
+        {% include "summary/new" %}
+    </form>
+{% endblock%}

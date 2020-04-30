@@ -1,0 +1,88 @@
+{% extends "header" %}
+{% block title %}Создание услуги{% endblock %}
+{% block js %}
+    <script type="text/javascript" src="{{ fullUri("/js/selectors.js") }}"></script>
+    <script type="text/javascript" src="{{ fullUri("/js/search.js") }}"></script>
+{% endblock %}
+{% block navbar %}
+    {% if anon is null %}
+        {% include "navbar_anon" %}
+    {% else %}
+        {% include "navbar_auth" %}
+    {% endif %}
+{% endblock navbar %}
+{% block content %}
+    <input hidden="hidden" {{ csrf() }}>
+    <div class="container">
+        <div class="search">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="author-tab" data-toggle="tab" href="#author" role="tab" aria-controls="author" aria-selected="true">Услуги</a>
+                </li>
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link" id="poem-tab" data-toggle="tab" href="#poem" role="tab" aria-controls="poem" aria-selected="false">Poems</a>#}
+{#                </li>#}
+            </ul>
+        </div>
+        <div>
+            <div class="input-group">
+                <input id="query" name="query" type="text" class="form-control" placeholder="Поиск" {% if question is not null %}value="{{ question }}"{% endif %}>
+                <div class="input-group-append">
+                    <button class="btn btn-secondary" type="submit" id="btn-search">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="search">
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="author" role="tabpanel" aria-labelledby="author-tab">
+                    {% if summaries is not null %}
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <h6>Параметры</h6>
+                                <div>
+                                    <select id="country" name="country" class="custom-select" required>
+                                        <option value="-">-Страна-</option>
+                                        {% for country in countries %}
+                                            {% if selectedCountry is not null %}
+                                                <option value="{{ selectedCountry.name }}" selected>{{ selectedCountry.name }}</option>
+                                            {% endif %}
+                                            <option value="{{ country.name }}">{{ country.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <br><br>
+                                <div>
+                                    <select id="sity" name="sity" class="custom-select" required hidden>
+                                        {% if selectedSity is not null %}
+                                            <option value="{{ selectedSity.name }}" selected>{{ selectedSity.name }}</option>
+                                        {% endif %}
+                                        <option value="-">-Город-</option>
+                                    </select>
+                                </div>
+                                <br><br>
+                            </div>
+                            <br>
+                            <div class="col-lg-9">
+                                <h4 class="srh_headers centered">Услуги по запросу</h4>
+                                <hr>
+                                {% if search is null %}
+                                    {% include "profile_parts/profile_summaries" %}
+                                {% else %}
+                                    {% include "profile_parts/profile_summaries_other" %}
+                                {% endif %}
+                                <div id="loading">
+                                    <img src="{{ fullUri("/static/loading.gif") }}" alt="this slowpoke moves"  width="50">
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <br>
+                        <h4 class="centered">По такому запросу ничего не найденно.</h4>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
